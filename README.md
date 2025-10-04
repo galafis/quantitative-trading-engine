@@ -169,6 +169,16 @@ pytest tests/unit/test_strategies.py
 pytest -v
 ```
 
+### 🏗️ Architecture Diagram
+
+![Architecture Diagram](docs/images/architecture.png)
+
+The platform follows a layered architecture with clear separation of concerns:
+- **Client Layer**: REST API clients and Swagger UI
+- **API Layer**: FastAPI endpoints for strategies, backtesting, and health checks
+- **Business Logic**: Strategy implementations and backtesting engine
+- **Data Layer**: PostgreSQL for persistence, Redis for caching, Yahoo Finance for market data
+
 ### 📁 Project Structure
 
 ```
