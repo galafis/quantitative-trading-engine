@@ -110,6 +110,21 @@ The API will be available at `http://localhost:8000`
 uvicorn app.main:app --reload
 ```
 
+### 💡 Quick Start Examples
+
+Check out the `examples/` directory for practical usage examples:
+
+```bash
+# Run a simple backtest example
+python examples/simple_backtest.py
+```
+
+This will demonstrate:
+- Fetching historical market data
+- Creating a momentum strategy
+- Running a backtest
+- Analyzing performance metrics
+
 ### 📖 API Documentation
 
 Once the application is running, access the interactive API documentation:
