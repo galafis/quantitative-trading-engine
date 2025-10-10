@@ -6,9 +6,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.core.database import engine, Base
 from app.api import strategies, backtest, health
+import os
 
-# Create database tables
-Base.metadata.create_all(bind=engine)
+# Create database tables (skip in test environment)
+if os.getenv("TESTING") != "true":
+    Base.metadata.create_all(bind=engine)
 
 # Initialize FastAPI app
 app = FastAPI(

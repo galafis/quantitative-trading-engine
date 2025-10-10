@@ -1,17 +1,13 @@
 import pytest
-from fastapi.testclient import TestClient
-from app.main import app
 
-client = TestClient(app)
-
-def test_health_check():
-    response = client.get("/api/v1/health")
+def test_health_check(client):
+    response = client.get("/health")
     assert response.status_code == 200
     assert response.json()["status"] == "healthy"
     assert "timestamp" in response.json()
     assert response.json()["service"] == "Quantitative Trading Engine"
 
-def test_root():
+def test_root(client):
     response = client.get("/")
     assert response.status_code == 200
     assert response.json()["message"] == "Quantitative Trading Engine API"
