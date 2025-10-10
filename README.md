@@ -1,12 +1,13 @@
 # 📈 Quantitative Trading Engine
 
+
+
 [![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.104-green.svg)](https://fastapi.tiangolo.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)](https://www.postgresql.org/)
 [![Redis](https://img.shields.io/badge/Redis-7-red.svg)](https://redis.io/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen.svg)](#testing)
 
 [English](#english) | [Português](#português)
 
@@ -168,7 +169,7 @@ curl -X POST "http://localhost:8000/api/v1/backtest/" \
 
 ### 🧪 Testing
 
-Run the comprehensive test suite:
+Run the comprehensive test suite. **Note: For integration tests and API tests, ensure PostgreSQL and Redis are running (e.g., via `docker-compose up -d`)**:
 
 ```bash
 # Run all tests
