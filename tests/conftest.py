@@ -2,17 +2,18 @@
 Pytest configuration and fixtures for testing.
 """
 import os
-import pytest
-from sqlalchemy import create_engine
 
-# Set testing environment variable
+# Set testing environment variable before importing app
 os.environ["TESTING"] = "true"
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.pool import StaticPool
-from fastapi.testclient import TestClient
 
-from app.main import app
-from app.core.database import Base, get_db
+import pytest  # noqa: E402
+from sqlalchemy import create_engine  # noqa: E402
+from sqlalchemy.orm import sessionmaker  # noqa: E402
+from sqlalchemy.pool import StaticPool  # noqa: E402
+from fastapi.testclient import TestClient  # noqa: E402
+
+from app.main import app  # noqa: E402
+from app.core.database import Base, get_db  # noqa: E402
 
 # Create in-memory SQLite database for testing
 SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
@@ -49,4 +50,3 @@ def client(test_db):
     with TestClient(app) as test_client:
         yield test_client
     app.dependency_overrides.clear()
-

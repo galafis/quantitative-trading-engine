@@ -2,7 +2,7 @@
 Health check endpoints.
 """
 from fastapi import APIRouter
-from datetime import datetime
+from datetime import datetime, UTC
 
 router = APIRouter(tags=["health"])
 
@@ -14,8 +14,8 @@ def health_check():
     """
     return {
         "status": "healthy",
-        "timestamp": datetime.utcnow().isoformat(),
-        "service": "Quantitative Trading Engine"
+        "timestamp": datetime.now(UTC).isoformat(),
+        "service": "Quantitative Trading Engine",
     }
 
 
@@ -24,8 +24,4 @@ def root():
     """
     Root endpoint.
     """
-    return {
-        "message": "Quantitative Trading Engine API",
-        "version": "1.0.0",
-        "docs": "/docs"
-    }
+    return {"message": "Quantitative Trading Engine API", "version": "1.0.0", "docs": "/docs"}

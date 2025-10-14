@@ -7,9 +7,9 @@ from app.strategies.mean_reversion import MeanReversionStrategy
 from app.strategies.breakout import BreakoutStrategy
 
 STRATEGY_MAP = {
-    'momentum': MomentumStrategy,
-    'mean_reversion': MeanReversionStrategy,
-    'breakout': BreakoutStrategy
+    "momentum": MomentumStrategy,
+    "mean_reversion": MeanReversionStrategy,
+    "breakout": BreakoutStrategy,
 }
 
 __all__ = [
@@ -17,5 +17,5 @@ __all__ = [
     "MomentumStrategy",
     "MeanReversionStrategy",
     "BreakoutStrategy",
-    "STRATEGY_MAP"
+    "STRATEGY_MAP",
 ]

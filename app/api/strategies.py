@@ -12,10 +12,7 @@ router = APIRouter(prefix="/strategies", tags=["strategies"])
 
 
 @router.post("/", response_model=StrategyResponse, status_code=status.HTTP_201_CREATED)
-def create_strategy(
-    strategy: StrategyCreate,
-    db: Session = Depends(get_db)
-):
+def create_strategy(strategy: StrategyCreate, db: Session = Depends(get_db)):
     """
     Create a new trading strategy.
     """
@@ -24,9 +21,9 @@ def create_strategy(
     if existing:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Strategy with name '{strategy.name}' already exists"
+            detail=f"Strategy with name '{strategy.name}' already exists",
         )
-    
+
     db_strategy = Strategy(**strategy.model_dump())
     db.add(db_strategy)
     db.commit()
@@ -35,11 +32,7 @@ def create_strategy(
 
 
 @router.get("/", response_model=List[StrategyResponse])
-def list_strategies(
-    skip: int = 0,
-    limit: int = 100,
-    db: Session = Depends(get_db)
-):
+def list_strategies(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     """
     List all trading strategies.
     """
@@ -48,10 +41,7 @@ def list_strategies(
 
 
 @router.get("/{strategy_id}", response_model=StrategyResponse)
-def get_strategy(
-    strategy_id: int,
-    db: Session = Depends(get_db)
-):
+def get_strategy(strategy_id: int, db: Session = Depends(get_db)):
     """
     Get a specific trading strategy by ID.
     """
@@ -59,16 +49,14 @@ def get_strategy(
     if not strategy:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Strategy with ID {strategy_id} not found"
+            detail=f"Strategy with ID {strategy_id} not found",
         )
     return strategy
 
 
 @router.put("/{strategy_id}", response_model=StrategyResponse)
 def update_strategy(
-    strategy_id: int,
-    strategy_update: StrategyUpdate,
-    db: Session = Depends(get_db)
+    strategy_id: int, strategy_update: StrategyUpdate, db: Session = Depends(get_db)
 ):
     """
     Update a trading strategy.
@@ -77,24 +65,21 @@ def update_strategy(
     if not strategy:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Strategy with ID {strategy_id} not found"
+            detail=f"Strategy with ID {strategy_id} not found",
         )
-    
+
     # Update only provided fields
     update_data = strategy_update.model_dump(exclude_unset=True)
     for field, value in update_data.items():
         setattr(strategy, field, value)
-    
+
     db.commit()
     db.refresh(strategy)
     return strategy
 
 
 @router.delete("/{strategy_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_strategy(
-    strategy_id: int,
-    db: Session = Depends(get_db)
-):
+def delete_strategy(strategy_id: int, db: Session = Depends(get_db)):
     """
     Delete a trading strategy.
     """
@@ -102,9 +87,9 @@ def delete_strategy(
     if not strategy:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Strategy with ID {strategy_id} not found"
+            detail=f"Strategy with ID {strategy_id} not found",
         )
-    
+
     db.delete(strategy)
     db.commit()
     return None
