@@ -115,16 +115,47 @@ uvicorn app.main:app --reload
 
 Check out the `examples/` directory for practical usage examples:
 
+#### 1. Simple Backtest
+Run a basic momentum strategy backtest:
 ```bash
-# Run a simple backtest example
 python examples/simple_backtest.py
 ```
 
-This will demonstrate:
-- Fetching historical market data
+This demonstrates:
+- Fetching/generating market data
 - Creating a momentum strategy
 - Running a backtest
 - Analyzing performance metrics
+
+#### 2. Strategy Comparison
+Compare multiple strategies side-by-side:
+```bash
+python examples/strategy_comparison.py
+```
+
+This shows:
+- Testing 6 different strategy configurations
+- Comparing performance metrics
+- Identifying best performers
+- Strategy-type analysis
+
+#### 3. API Integration
+Learn how to use the REST API programmatically:
+```bash
+# Start the API first
+uvicorn app.main:app --reload
+
+# Then in another terminal
+python examples/api_usage.py
+```
+
+This covers:
+- Creating strategies via API
+- Listing and managing strategies
+- Running backtests programmatically
+- Retrieving detailed results
+
+See the [examples/](examples/) directory for more details.
 
 ### 📖 API Documentation
 
@@ -169,21 +200,40 @@ curl -X POST "http://localhost:8000/api/v1/backtest/" \
 
 ### 🧪 Testing
 
-Run the comprehensive test suite. **Note: For integration tests and API tests, ensure PostgreSQL and Redis are running (e.g., via `docker-compose up -d`)**:
+Run the comprehensive test suite with **92% code coverage**:
 
 ```bash
 # Run all tests
 pytest
 
-# Run with coverage
-pytest --cov=app --cov-report=html
+# Run with coverage report
+pytest --cov=app --cov-report=html --cov-report=term
 
 # Run specific test file
 pytest tests/unit/test_strategies.py
 
+# Run integration tests only
+pytest tests/integration/
+
 # Run with verbose output
 pytest -v
 ```
+
+**Test Categories:**
+- **Unit Tests** (`tests/unit/`): Test individual components and strategies
+- **Integration Tests** (`tests/integration/`): Test API endpoints and database operations
+
+**Coverage Report:**
+After running tests with coverage, open `htmlcov/index.html` in your browser to see detailed coverage analysis.
+
+### 📚 Documentation
+
+Comprehensive documentation is available in the `docs/` directory:
+
+- **[Troubleshooting Guide](docs/TROUBLESHOOTING.md)** - Solutions to common issues
+- **[Deployment Guide](docs/DEPLOYMENT.md)** - Deploy to AWS, GCP, Azure, Heroku, and more
+- **[Architecture Diagram](docs/architecture.mmd)** - System architecture visualization
+- **[Contributing Guide](CONTRIBUTING.md)** - Guidelines for contributing
 
 ### 🏗️ Architecture Diagram
 
@@ -191,9 +241,11 @@ pytest -v
 
 The platform follows a layered architecture with clear separation of concerns:
 - **Client Layer**: REST API clients and Swagger UI
-- **API Layer**: FastAPI endpoints for strategies, backtesting, and health checks
+- **API Layer**: FastAPI endpoints for strategies, backtesting, and health checks  
 - **Business Logic**: Strategy implementations and backtesting engine
 - **Data Layer**: PostgreSQL for persistence, Redis for caching, Yahoo Finance for market data
+
+For detailed architecture information, see [docs/architecture.mmd](docs/architecture.mmd).
 
 ### 📁 Project Structure
 
@@ -290,27 +342,44 @@ Easily extensible to other data providers.
 
 ### 🚀 Deployment
 
+The application is production-ready and can be deployed to various platforms.
+
 #### Docker Deployment (Recommended)
 
 ```bash
-# Build and start
+# Build and start all services
 docker-compose up -d
 
 # View logs
 docker-compose logs -f
 
-# Stop
+# Stop services
 docker-compose down
 ```
 
-#### Cloud Deployment
+#### Cloud Platforms
 
-The application is ready for deployment on:
-- **AWS** (ECS, EC2, Lambda)
-- **Google Cloud** (Cloud Run, GKE)
-- **Azure** (Container Instances, AKS)
-- **Heroku**
-- **DigitalOcean**
+Detailed deployment guides for:
+- ✅ **AWS** (ECS, Lambda, EC2)
+- ✅ **Google Cloud** (Cloud Run, GKE)
+- ✅ **Azure** (Container Instances, AKS)
+- ✅ **Heroku**
+- ✅ **DigitalOcean**
+
+See **[Deployment Guide](docs/DEPLOYMENT.md)** for step-by-step instructions.
+
+#### Production Checklist
+
+Before deploying to production:
+- [ ] Change `SECRET_KEY` in environment variables
+- [ ] Use strong database passwords
+- [ ] Enable HTTPS/SSL
+- [ ] Configure CORS properly
+- [ ] Set up monitoring and logging
+- [ ] Configure automated backups
+- [ ] Test disaster recovery procedures
+
+Full checklist in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ### 📈 Roadmap
 
@@ -325,7 +394,35 @@ The application is ready for deployment on:
 
 ### 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) first.
+
+**Quick Start:**
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Run tests (`pytest`)
+5. Run linting (`flake8 app tests && black app tests`)
+6. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+7. Push to the branch (`git push origin feature/amazing-feature`)
+8. Open a Pull Request
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines on code style, testing, and documentation.
+
+### 🔧 Troubleshooting
+
+Having issues? Check our comprehensive troubleshooting guide:
+
+**Common Issues:**
+- Database connection errors → [Database Issues](docs/TROUBLESHOOTING.md#database-issues)
+- API errors → [API Issues](docs/TROUBLESHOOTING.md#api-issues)
+- Docker problems → [Docker Issues](docs/TROUBLESHOOTING.md#docker-issues)
+- Test failures → [Testing Issues](docs/TROUBLESHOOTING.md#testing-issues)
+- Performance problems → [Performance Issues](docs/TROUBLESHOOTING.md#performance-issues)
+
+**Still stuck?** 
+- Check [GitHub Issues](https://github.com/galafis/quantitative-trading-engine/issues)
+- Read the [Full Troubleshooting Guide](docs/TROUBLESHOOTING.md)
+- Open a new issue with details
 
 ### 📄 License
 
