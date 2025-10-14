@@ -9,7 +9,7 @@ from app.schemas.strategy import (
     BacktestRequest,
     BacktestResponse,
     TradeResponse,
-    PerformanceMetrics
+    PerformanceMetrics,
 )
 
 __all__ = [
@@ -20,5 +20,5 @@ __all__ = [
     "BacktestRequest",
     "BacktestResponse",
     "TradeResponse",
-    "PerformanceMetrics"
+    "PerformanceMetrics",
 ]

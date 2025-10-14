@@ -15,7 +15,7 @@ def health_check():
     return {
         "status": "healthy",
         "timestamp": datetime.utcnow().isoformat(),
-        "service": "Quantitative Trading Engine"
+        "service": "Quantitative Trading Engine",
     }
 
 
@@ -27,5 +27,5 @@ def root():
     return {
         "message": "Quantitative Trading Engine API",
         "version": "1.0.0",
-        "docs": "/docs"
+        "docs": "/docs",
     }
