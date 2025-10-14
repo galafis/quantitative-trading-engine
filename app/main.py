@@ -18,7 +18,7 @@ app = FastAPI(
     version=settings.VERSION,
     description=settings.DESCRIPTION,
     docs_url="/docs",
-    redoc_url="/redoc"
+    redoc_url="/redoc",
 )
 
 # Configure CORS
@@ -42,7 +42,7 @@ async def startup_event():
     Actions to perform on application startup.
     """
     print(f"Starting {settings.PROJECT_NAME} v{settings.VERSION}")
-    print(f"Documentation available at: /docs")
+    print("Documentation available at: /docs")
 
 
 @app.on_event("shutdown")

@@ -8,20 +8,25 @@ from datetime import datetime
 
 class StrategyBase(BaseModel):
     """Base strategy schema."""
+
     name: str = Field(..., description="Strategy name")
     description: Optional[str] = Field(None, description="Strategy description")
-    strategy_type: str = Field(..., description="Strategy type (momentum, mean_reversion, breakout)")
+    strategy_type: str = Field(
+        ..., description="Strategy type (momentum, mean_reversion, breakout)"
+    )
     parameters: Dict[str, Any] = Field(..., description="Strategy parameters")
     is_active: bool = Field(True, description="Whether strategy is active")
 
 
 class StrategyCreate(StrategyBase):
     """Schema for creating a strategy."""
+
     pass
 
 
 class StrategyUpdate(BaseModel):
     """Schema for updating a strategy."""
+
     name: Optional[str] = None
     description: Optional[str] = None
     parameters: Optional[Dict[str, Any]] = None
@@ -30,16 +35,18 @@ class StrategyUpdate(BaseModel):
 
 class StrategyResponse(StrategyBase):
     """Schema for strategy response."""
+
     id: int
     created_at: datetime
     updated_at: Optional[datetime] = None
-    
+
     class Config:
         from_attributes = True
 
 
 class BacktestRequest(BaseModel):
     """Schema for backtest request."""
+
     strategy_id: int = Field(..., description="Strategy ID")
     symbol: str = Field(..., description="Trading symbol")
     start_date: datetime = Field(..., description="Backtest start date")
@@ -51,6 +58,7 @@ class BacktestRequest(BaseModel):
 
 class BacktestResponse(BaseModel):
     """Schema for backtest response."""
+
     id: int
     strategy_id: int
     symbol: str
@@ -70,13 +78,14 @@ class BacktestResponse(BaseModel):
     avg_loss: Optional[float]
     profit_factor: Optional[float]
     created_at: datetime
-    
+
     class Config:
         from_attributes = True
 
 
 class TradeResponse(BaseModel):
     """Schema for trade response."""
+
     id: int
     strategy_id: int
     symbol: str
@@ -92,13 +101,14 @@ class TradeResponse(BaseModel):
     slippage: float
     status: str
     notes: Optional[str]
-    
+
     class Config:
         from_attributes = True
 
 
 class PerformanceMetrics(BaseModel):
     """Performance metrics schema."""
+
     total_return: float
     annualized_return: float
     sharpe_ratio: float

@@ -1,7 +1,16 @@
 """
 Strategy database models.
 """
-from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean, JSON, ForeignKey
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    Float,
+    DateTime,
+    Boolean,
+    JSON,
+    ForeignKey,
+)
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from app.core.database import Base
@@ -9,18 +18,19 @@ from app.core.database import Base
 
 class Strategy(Base):
     """Strategy model."""
-    
+
     __tablename__ = "strategies"
-    
+
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, index=True, nullable=False)
     description = Column(String, nullable=True)
-    strategy_type = Column(String, nullable=False)  # momentum, mean_reversion, breakout
+    # momentum, mean_reversion, breakout
+    strategy_type = Column(String, nullable=False)
     parameters = Column(JSON, nullable=False)
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
-    
+
     # Relationships
     backtests = relationship("Backtest", back_populates="strategy")
     trades = relationship("Trade", back_populates="strategy")
@@ -28,9 +38,9 @@ class Strategy(Base):
 
 class Backtest(Base):
     """Backtest results model."""
-    
+
     __tablename__ = "backtests"
-    
+
     id = Column(Integer, primary_key=True, index=True)
     strategy_id = Column(Integer, ForeignKey("strategies.id"), nullable=False)
     symbol = Column(String, nullable=False)
@@ -51,16 +61,16 @@ class Backtest(Base):
     profit_factor = Column(Float, nullable=True)
     parameters = Column(JSON, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
-    
+
     # Relationships
     strategy = relationship("Strategy", back_populates="backtests")
 
 
 class Trade(Base):
     """Trade execution model."""
-    
+
     __tablename__ = "trades"
-    
+
     id = Column(Integer, primary_key=True, index=True)
     strategy_id = Column(Integer, ForeignKey("strategies.id"), nullable=False)
     symbol = Column(String, nullable=False)
@@ -76,6 +86,6 @@ class Trade(Base):
     slippage = Column(Float, nullable=False, default=0.0)
     status = Column(String, nullable=False)  # open, closed
     notes = Column(String, nullable=True)
-    
+
     # Relationships
     strategy = relationship("Strategy", back_populates="trades")
