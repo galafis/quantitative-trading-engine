@@ -71,7 +71,7 @@ This platform is designed for quantitative traders, portfolio managers, and fina
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/quantitative-trading-engine.git
+git clone https://github.com/galafis/quantitative-trading-engine.git
 cd quantitative-trading-engine
 ```
 
@@ -395,7 +395,7 @@ Esta plataforma é projetada para traders quantitativos, gestores de portfólio 
 
 1. **Clone o repositório**
 ```bash
-git clone https://github.com/yourusername/quantitative-trading-engine.git
+git clone https://github.com/galafis/quantitative-trading-engine.git
 cd quantitative-trading-engine
 ```
 
