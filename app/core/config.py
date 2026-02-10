@@ -1,11 +1,13 @@
 """
 Application configuration settings.
 """
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
     """Application settings."""
+
+    model_config = SettingsConfigDict(env_file=".env", case_sensitive=True)
 
     # API Settings
     API_V1_STR: str = "/api/v1"
@@ -17,7 +19,7 @@ class Settings(BaseSettings):
     )
 
     # Security
-    SECRET_KEY: str = "your-secret-key-change-in-production"
+    SECRET_KEY: str = "change-me-in-production"
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
@@ -28,7 +30,7 @@ class Settings(BaseSettings):
     REDIS_URL: str = "redis://localhost:6379"
 
     # CORS
-    BACKEND_CORS_ORIGINS: list = ["*"]
+    BACKEND_CORS_ORIGINS: list[str] = ["*"]
 
     # Market Data
     MARKET_DATA_PROVIDER: str = "yahoo"
@@ -38,10 +40,6 @@ class Settings(BaseSettings):
     DEFAULT_INITIAL_CAPITAL: float = 100000.0
     DEFAULT_COMMISSION: float = 0.001  # 0.1%
     DEFAULT_SLIPPAGE: float = 0.0005  # 0.05%
-
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
 
 
 settings = Settings()

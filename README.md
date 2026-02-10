@@ -2,8 +2,8 @@
 
 
 
-[![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.104-green.svg)](https://fastapi.tiangolo.com/)
+[![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green.svg)](https://fastapi.tiangolo.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)](https://www.postgresql.org/)
 [![Redis](https://img.shields.io/badge/Redis-7-red.svg)](https://redis.io/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
@@ -37,7 +37,7 @@ This platform is designed for quantitative traders, portfolio managers, and fina
 - **Caching Layer**: Redis for high-performance data access
 - **Containerized**: Docker and Docker Compose for easy deployment
 - **Type-Safe**: Full type hints with Pydantic validation
-- **Test Coverage**: Comprehensive unit and integration tests
+- **Test Coverage**: Comprehensive unit tests
 
 #### 📊 Trading Strategies
 
@@ -62,7 +62,7 @@ This platform is designed for quantitative traders, portfolio managers, and fina
 ### 🚀 Quick Start
 
 #### Prerequisites
-- Python 3.11+
+- Python 3.12+
 - Docker and Docker Compose
 - PostgreSQL 15+ (or use Docker)
 - Redis 7+ (or use Docker)
@@ -169,7 +169,7 @@ curl -X POST "http://localhost:8000/api/v1/backtest/" \
 
 ### 🧪 Testing
 
-Run the comprehensive test suite. **Note: For integration tests and API tests, ensure PostgreSQL and Redis are running (e.g., via `docker-compose up -d`)**:
+Run the test suite. **Note: Tests use an in-memory SQLite database, so no external services are required for unit tests**:
 
 ```bash
 # Run all tests
@@ -361,7 +361,7 @@ Esta plataforma é projetada para traders quantitativos, gestores de portfólio 
 - **Camada de Cache**: Redis para acesso de dados de alta performance
 - **Containerizado**: Docker e Docker Compose para fácil deployment
 - **Type-Safe**: Type hints completos com validação Pydantic
-- **Cobertura de Testes**: Testes unitários e de integração abrangentes
+- **Cobertura de Testes**: Testes unitários abrangentes
 
 #### 📊 Estratégias de Trading
 
@@ -386,7 +386,7 @@ Esta plataforma é projetada para traders quantitativos, gestores de portfólio 
 ### 🚀 Início Rápido
 
 #### Pré-requisitos
-- Python 3.11+
+- Python 3.12+
 - Docker e Docker Compose
 - PostgreSQL 15+ (ou use Docker)
 - Redis 7+ (ou use Docker)

@@ -1,26 +1,29 @@
 """
 Main FastAPI application.
 """
+import logging
+import os
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.core.config import settings
-from app.core.database import engine, Base
-from app.api import strategies, backtest, health
-import os
 
-# Create database tables (skip in test environment)
-if os.getenv("TESTING") != "true":
-    Base.metadata.create_all(bind=engine)
+from app.api import backtest, health, strategies
+from app.core.config import settings
+from app.core.database import Base, engine
+
+logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Application startup and shutdown lifecycle."""
-    print(f"Starting {settings.PROJECT_NAME} v{settings.VERSION}")
-    print("Documentation available at: /docs")
+    if os.getenv("TESTING") != "true":
+        Base.metadata.create_all(bind=engine)
+    logger.info("Starting %s v%s", settings.PROJECT_NAME, settings.VERSION)
+    logger.info("Documentation available at: /docs")
     yield
-    print(f"Shutting down {settings.PROJECT_NAME}")
+    logger.info("Shutting down %s", settings.PROJECT_NAME)
 
 
 # Initialize FastAPI app

@@ -1,8 +1,8 @@
 """
 Strategy Pydantic schemas.
 """
-from pydantic import BaseModel, Field
-from typing import Optional, Dict, Any
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Literal, Optional, Dict, Any
 from datetime import datetime
 
 
@@ -11,7 +11,7 @@ class StrategyBase(BaseModel):
 
     name: str = Field(..., description="Strategy name")
     description: Optional[str] = Field(None, description="Strategy description")
-    strategy_type: str = Field(
+    strategy_type: Literal["momentum", "mean_reversion", "breakout"] = Field(
         ..., description="Strategy type (momentum, mean_reversion, breakout)"
     )
     parameters: Dict[str, Any] = Field(..., description="Strategy parameters")
@@ -36,12 +36,11 @@ class StrategyUpdate(BaseModel):
 class StrategyResponse(StrategyBase):
     """Schema for strategy response."""
 
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     created_at: datetime
     updated_at: Optional[datetime] = None
-
-    class Config:
-        from_attributes = True
 
 
 class BacktestRequest(BaseModel):
@@ -58,6 +57,8 @@ class BacktestRequest(BaseModel):
 
 class BacktestResponse(BaseModel):
     """Schema for backtest response."""
+
+    model_config = ConfigDict(from_attributes=True)
 
     id: int
     strategy_id: int
@@ -79,12 +80,11 @@ class BacktestResponse(BaseModel):
     profit_factor: Optional[float]
     created_at: datetime
 
-    class Config:
-        from_attributes = True
-
 
 class TradeResponse(BaseModel):
     """Schema for trade response."""
+
+    model_config = ConfigDict(from_attributes=True)
 
     id: int
     strategy_id: int
@@ -101,9 +101,6 @@ class TradeResponse(BaseModel):
     slippage: float
     status: str
     notes: Optional[str]
-
-    class Config:
-        from_attributes = True
 
 
 class PerformanceMetrics(BaseModel):

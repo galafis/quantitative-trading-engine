@@ -132,6 +132,28 @@ class BacktestEngine:
         # Calculate performance metrics
         metrics = self.calculate_metrics(df)
 
+        # Close any remaining open position at last available price
+        if position > 0 and len(df) > 0:
+            last_price = df.iloc[-1]["close"] * (1 - self.slippage)
+            proceeds = position * last_price
+            commission_cost = proceeds * self.commission
+            capital += proceeds - commission_cost
+
+            pnl = (last_price - entry_price) * position - (
+                self.trades[-1]["commission"] + commission_cost
+            )
+            pnl_percent = (pnl / (entry_price * position)) * 100
+
+            self.trades[-1].update(
+                {
+                    "exit_time": df.index[-1],
+                    "exit_price": last_price,
+                    "pnl": pnl,
+                    "pnl_percent": pnl_percent,
+                    "status": "closed",
+                }
+            )
+
         return_pct = ((capital - self.initial_capital) / self.initial_capital) * 100
 
         return {

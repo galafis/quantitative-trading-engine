@@ -7,10 +7,11 @@ from app.strategies.base import BaseStrategy
 
 class MomentumStrategy(BaseStrategy):
     """
-    Momentum strategy based on moving average crossover.
+    Momentum strategy based on moving average positioning.
 
-    Generates buy signals when fast MA crosses above slow MA,
-    and sell signals when fast MA crosses below slow MA.
+    Generates buy signals when the fast MA is above the slow MA,
+    and sell signals when the fast MA is below the slow MA.
+    The backtest engine handles entry/exit state management.
     """
 
     def __init__(self, parameters: dict | None = None):
@@ -66,9 +67,5 @@ class MomentumStrategy(BaseStrategy):
         df["signal"] = 0
         df.loc[df["fast_ma"] > df["slow_ma"], "signal"] = 1  # Buy
         df.loc[df["fast_ma"] < df["slow_ma"], "signal"] = -1  # Sell
-
-        # Detect crossovers
-        # (only generate signal on crossover, not continuously)
-        df["position"] = df["signal"].diff()
 
         return df

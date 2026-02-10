@@ -53,10 +53,3 @@ logs/
 # OS
 .DS_Store
 Thumbs.db
-
-
-rust-market-microstructure-analyzer/
-rust-sentiment-analysis-trading/
-secure-financial-api-gateway/
-sql-trading-database-design/
-
