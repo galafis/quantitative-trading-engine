@@ -13,7 +13,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import pandas as pd
 import numpy as np
-from datetime import datetime, timedelta
+from datetime import datetime
 from app.strategies.momentum import MomentumStrategy
 from app.services.backtest import BacktestEngine
 
@@ -28,13 +28,12 @@ def generate_sample_data(days=252):
     prices = 100 * (1 + returns).cumprod()
     
     data = pd.DataFrame({
-        'date': dates,
         'open': prices * (1 + np.random.randn(days) * 0.01),
         'high': prices * (1 + np.abs(np.random.randn(days)) * 0.02),
         'low': prices * (1 - np.abs(np.random.randn(days)) * 0.02),
         'close': prices,
         'volume': np.random.randint(1000000, 10000000, days)
-    })
+    }, index=dates)
     
     return data
 

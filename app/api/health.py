@@ -2,7 +2,7 @@
 Health check endpoints.
 """
 from fastapi import APIRouter
-from datetime import datetime
+from datetime import datetime, timezone
 
 router = APIRouter(tags=["health"])
 
@@ -14,7 +14,7 @@ def health_check():
     """
     return {
         "status": "healthy",
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         "service": "Quantitative Trading Engine",
     }
 

@@ -1,6 +1,7 @@
 """
 Main FastAPI application.
 """
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
@@ -12,6 +13,16 @@ import os
 if os.getenv("TESTING") != "true":
     Base.metadata.create_all(bind=engine)
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Application startup and shutdown lifecycle."""
+    print(f"Starting {settings.PROJECT_NAME} v{settings.VERSION}")
+    print("Documentation available at: /docs")
+    yield
+    print(f"Shutting down {settings.PROJECT_NAME}")
+
+
 # Initialize FastAPI app
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -19,6 +30,7 @@ app = FastAPI(
     description=settings.DESCRIPTION,
     docs_url="/docs",
     redoc_url="/redoc",
+    lifespan=lifespan,
 )
 
 # Configure CORS
@@ -35,19 +47,3 @@ app.include_router(health.router)
 app.include_router(strategies.router, prefix=settings.API_V1_STR)
 app.include_router(backtest.router, prefix=settings.API_V1_STR)
 
-
-@app.on_event("startup")
-async def startup_event():
-    """
-    Actions to perform on application startup.
-    """
-    print(f"Starting {settings.PROJECT_NAME} v{settings.VERSION}")
-    print("Documentation available at: /docs")
-
-
-@app.on_event("shutdown")
-async def shutdown_event():
-    """
-    Actions to perform on application shutdown.
-    """
-    print(f"Shutting down {settings.PROJECT_NAME}")
