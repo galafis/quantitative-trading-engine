@@ -46,4 +46,3 @@ app.add_middleware(
 app.include_router(health.router)
 app.include_router(strategies.router, prefix=settings.API_V1_STR)
 app.include_router(backtest.router, prefix=settings.API_V1_STR)
-
