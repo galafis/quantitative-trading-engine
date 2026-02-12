@@ -22,7 +22,6 @@ graph TB
     
     subgraph "Data Layer"
         M[(PostgreSQL)]
-        N[(Redis Cache)]
         O[Yahoo Finance API]
     end
     
@@ -40,7 +39,6 @@ graph TB
     I --> O
     G --> M
     H --> M
-    I --> N
     
     style A fill:#e1f5ff
     style B fill:#e1f5ff
@@ -48,4 +46,3 @@ graph TB
     style G fill:#f0e1ff
     style H fill:#f0e1ff
     style M fill:#e1ffe1
-    style N fill:#ffe1e1

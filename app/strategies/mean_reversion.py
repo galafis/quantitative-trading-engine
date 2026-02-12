@@ -58,8 +58,10 @@ class MeanReversionStrategy(BaseStrategy):
             .rolling(window=period)
             .mean()
         )
-        rs = gain / loss
+        rs = gain / loss.replace(0, float("nan"))
         rsi = 100 - (100 / (1 + rs))
+        # When loss is 0, RSI is 100 (fully bullish); fill accordingly
+        rsi = rsi.fillna(100)
         return rsi
 
     def generate_signals(self, data: pd.DataFrame) -> pd.DataFrame:

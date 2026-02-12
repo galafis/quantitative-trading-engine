@@ -42,7 +42,9 @@ class Backtest(Base):
     __tablename__ = "backtests"
 
     id = Column(Integer, primary_key=True, index=True)
-    strategy_id = Column(Integer, ForeignKey("strategies.id"), nullable=False)
+    strategy_id = Column(
+        Integer, ForeignKey("strategies.id"), nullable=False, index=True
+    )
     symbol = Column(String, nullable=False)
     start_date = Column(DateTime, nullable=False)
     end_date = Column(DateTime, nullable=False)

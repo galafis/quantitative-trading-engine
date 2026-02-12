@@ -1,11 +1,10 @@
 """
 Strategy API endpoints.
 """
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
-from typing import List
 from app.core.database import get_db
-from app.models import Strategy
+from app.models import Strategy, Backtest, Trade
 from app.schemas import StrategyCreate, StrategyUpdate, StrategyResponse
 
 router = APIRouter(prefix="/strategies", tags=["strategies"])
@@ -31,8 +30,12 @@ def create_strategy(strategy: StrategyCreate, db: Session = Depends(get_db)):
     return db_strategy
 
 
-@router.get("/", response_model=List[StrategyResponse])
-def list_strategies(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+@router.get("/", response_model=list[StrategyResponse])
+def list_strategies(
+    skip: int = Query(default=0, ge=0),
+    limit: int = Query(default=100, ge=1, le=1000),
+    db: Session = Depends(get_db),
+):
     """
     List all trading strategies.
     """
@@ -92,6 +95,9 @@ def delete_strategy(strategy_id: int, db: Session = Depends(get_db)):
             detail=f"Strategy with ID {strategy_id} not found",
         )
 
+    # Delete associated backtests and trades first
+    db.query(Backtest).filter(Backtest.strategy_id == strategy_id).delete()
+    db.query(Trade).filter(Trade.strategy_id == strategy_id).delete()
     db.delete(strategy)
     db.commit()
     return None

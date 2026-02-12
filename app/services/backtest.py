@@ -92,6 +92,7 @@ class BacktestEngine:
                         "quantity": position,
                         "side": "buy",
                         "commission": commission_cost,
+                        "status": "open",
                     }
                 )
 
@@ -129,9 +130,6 @@ class BacktestEngine:
             else:
                 self.equity_curve.append(capital)
 
-        # Calculate performance metrics
-        metrics = self.calculate_metrics(df)
-
         # Close any remaining open position at last available price
         if position > 0 and len(df) > 0:
             last_price = df.iloc[-1]["close"] * (1 - self.slippage)
@@ -153,6 +151,11 @@ class BacktestEngine:
                     "status": "closed",
                 }
             )
+            # Update equity curve after force-closing position
+            self.equity_curve.append(capital)
+
+        # Calculate metrics AFTER all positions are closed
+        metrics = self.calculate_metrics(df)
 
         return_pct = ((capital - self.initial_capital) / self.initial_capital) * 100
 

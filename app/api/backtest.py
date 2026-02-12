@@ -1,13 +1,17 @@
 """
 Backtest API endpoints.
 """
-from fastapi import APIRouter, Depends, HTTPException, status
+import logging
+
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
-from typing import List
+
 from app.core.database import get_db
 from app.models import Strategy, Backtest
 from app.schemas import BacktestRequest, BacktestResponse
 from app.services import BacktestEngine, MarketDataService
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/backtest", tags=["backtest"])
 
@@ -34,9 +38,10 @@ def run_backtest(request: BacktestRequest, db: Session = Depends(get_db)):
             end_date=request.end_date,
         )
     except Exception as e:
+        logger.exception("Error fetching market data for %s", request.symbol)
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Error fetching market data: {str(e)}",
+            detail="Failed to fetch market data for the specified symbol and date range",
         )
 
     if data.empty:
@@ -59,9 +64,10 @@ def run_backtest(request: BacktestRequest, db: Session = Depends(get_db)):
             data=data,
         )
     except Exception as e:
+        logger.exception("Error running backtest for strategy %d", request.strategy_id)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error running backtest: {str(e)}",
+            detail="An internal error occurred while running the backtest",
         )
 
     # Save backtest results
@@ -94,11 +100,11 @@ def run_backtest(request: BacktestRequest, db: Session = Depends(get_db)):
     return db_backtest
 
 
-@router.get("/", response_model=List[BacktestResponse])
+@router.get("/", response_model=list[BacktestResponse])
 def list_backtests(
     strategy_id: int | None = None,
-    skip: int = 0,
-    limit: int = 100,
+    skip: int = Query(default=0, ge=0),
+    limit: int = Query(default=100, ge=1, le=1000),
     db: Session = Depends(get_db),
 ):
     """

@@ -26,9 +26,6 @@ class Settings(BaseSettings):
     # Database
     DATABASE_URL: str = "postgresql://trading:trading123@localhost:5432/trading_db"
 
-    # Redis
-    REDIS_URL: str = "redis://localhost:6379"
-
     # CORS
     BACKEND_CORS_ORIGINS: list[str] = ["*"]
 

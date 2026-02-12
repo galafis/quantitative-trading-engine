@@ -5,7 +5,6 @@
 [![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green.svg)](https://fastapi.tiangolo.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)](https://www.postgresql.org/)
-[![Redis](https://img.shields.io/badge/Redis-7-red.svg)](https://redis.io/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -17,9 +16,9 @@
 
 ### 🎯 Overview
 
-**Quantitative Trading Engine** is a professional-grade platform for developing, backtesting, and executing algorithmic trading strategies. Built with modern Python technologies, it provides a robust REST API for strategy management, comprehensive backtesting capabilities, and real-time performance analytics.
+**Quantitative Trading Engine** is a platform for developing, backtesting, and executing algorithmic trading strategies. Built with Python and FastAPI, it provides a REST API for strategy management, backtesting capabilities, and performance analytics.
 
-This platform is designed for quantitative traders, portfolio managers, and financial engineers who need a reliable infrastructure for automated trading systems.
+Designed for quantitative traders, portfolio managers, and financial engineers who need infrastructure for automated trading systems.
 
 ### ✨ Key Features
 
@@ -27,14 +26,13 @@ This platform is designed for quantitative traders, portfolio managers, and fina
 - **Multiple Strategy Types**: Momentum, Mean Reversion, and Breakout strategies out-of-the-box
 - **Professional Backtesting Engine**: Statistical validation with Sharpe ratio, Sortino ratio, and maximum drawdown
 - **REST API**: Full-featured API with OpenAPI/Swagger documentation
-- **Real-time Market Data**: Integration with Yahoo Finance for historical and live data
-- **Position Sizing**: Intelligent position sizing based on risk management principles
+- **Market Data**: Integration with Yahoo Finance for historical data
+- **Position Sizing**: Risk-based position sizing
 - **Performance Metrics**: Comprehensive analytics including win rate, profit factor, and trade statistics
 
 #### 🏗️ Architecture
-- **Microservices-Ready**: Modular design with clear separation of concerns
+- **Modular Design**: Clear separation of concerns across layers
 - **Database Persistence**: PostgreSQL for reliable data storage
-- **Caching Layer**: Redis for high-performance data access
 - **Containerized**: Docker and Docker Compose for easy deployment
 - **Type-Safe**: Full type hints with Pydantic validation
 - **Test Coverage**: Comprehensive unit tests
@@ -65,7 +63,6 @@ This platform is designed for quantitative traders, portfolio managers, and fina
 - Python 3.12+
 - Docker and Docker Compose
 - PostgreSQL 15+ (or use Docker)
-- Redis 7+ (or use Docker)
 
 #### Installation
 
@@ -193,7 +190,7 @@ The platform follows a layered architecture with clear separation of concerns:
 - **Client Layer**: REST API clients and Swagger UI
 - **API Layer**: FastAPI endpoints for strategies, backtesting, and health checks
 - **Business Logic**: Strategy implementations and backtesting engine
-- **Data Layer**: PostgreSQL for persistence, Redis for caching, Yahoo Finance for market data
+- **Data Layer**: PostgreSQL for persistence, Yahoo Finance for market data
 
 ### 📁 Project Structure
 
@@ -305,8 +302,8 @@ docker-compose down
 
 #### Cloud Deployment
 
-The application is ready for deployment on:
-- **AWS** (ECS, EC2, Lambda)
+The application is containerized and can be adapted for deployment on:
+- **AWS** (ECS, EC2)
 - **Google Cloud** (Cloud Run, GKE)
 - **Azure** (Container Instances, AKS)
 - **Heroku**
@@ -341,9 +338,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### 🎯 Visão Geral
 
-**Quantitative Trading Engine** é uma plataforma profissional para desenvolvimento, backtesting e execução de estratégias de trading algorítmico. Construída com tecnologias Python modernas, oferece uma API REST robusta para gerenciamento de estratégias, capacidades abrangentes de backtesting e análises de performance em tempo real.
+**Quantitative Trading Engine** é uma plataforma para desenvolvimento, backtesting e execução de estratégias de trading algorítmico. Construída com Python e FastAPI, oferece uma API REST para gerenciamento de estratégias, capacidades de backtesting e análises de performance.
 
-Esta plataforma é projetada para traders quantitativos, gestores de portfólio e engenheiros financeiros que precisam de uma infraestrutura confiável para sistemas de trading automatizado.
+Projetada para traders quantitativos, gestores de portfólio e engenheiros financeiros que precisam de infraestrutura para sistemas de trading automatizado.
 
 ### ✨ Funcionalidades Principais
 
@@ -351,14 +348,13 @@ Esta plataforma é projetada para traders quantitativos, gestores de portfólio 
 - **Múltiplos Tipos de Estratégia**: Estratégias de Momentum, Reversão à Média e Breakout prontas para uso
 - **Engine de Backtesting Profissional**: Validação estatística com índice de Sharpe, Sortino e drawdown máximo
 - **API REST**: API completa com documentação OpenAPI/Swagger
-- **Dados de Mercado em Tempo Real**: Integração com Yahoo Finance para dados históricos e ao vivo
-- **Dimensionamento de Posição**: Dimensionamento inteligente baseado em princípios de gestão de risco
+- **Dados de Mercado**: Integração com Yahoo Finance para dados históricos
+- **Dimensionamento de Posição**: Dimensionamento baseado em gestão de risco
 - **Métricas de Performance**: Análises abrangentes incluindo taxa de acerto, fator de lucro e estatísticas de trades
 
 #### 🏗️ Arquitetura
-- **Pronto para Microsserviços**: Design modular com clara separação de responsabilidades
+- **Design Modular**: Clara separação de responsabilidades entre camadas
 - **Persistência em Banco de Dados**: PostgreSQL para armazenamento confiável de dados
-- **Camada de Cache**: Redis para acesso de dados de alta performance
 - **Containerizado**: Docker e Docker Compose para fácil deployment
 - **Type-Safe**: Type hints completos com validação Pydantic
 - **Cobertura de Testes**: Testes unitários abrangentes
@@ -389,7 +385,6 @@ Esta plataforma é projetada para traders quantitativos, gestores de portfólio 
 - Python 3.12+
 - Docker e Docker Compose
 - PostgreSQL 15+ (ou use Docker)
-- Redis 7+ (ou use Docker)
 
 #### Instalação
 
@@ -604,8 +599,8 @@ docker-compose down
 
 #### Deployment em Nuvem
 
-A aplicação está pronta para deployment em:
-- **AWS** (ECS, EC2, Lambda)
+A aplicação é containerizada e pode ser adaptada para deployment em:
+- **AWS** (ECS, EC2)
 - **Google Cloud** (Cloud Run, GKE)
 - **Azure** (Container Instances, AKS)
 - **Heroku**
@@ -634,6 +629,4 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICE
 
 **Gabriel Demetrios Lafis**
 
----
 
-**⭐ Se este projeto foi útil para você, considere dar uma estrela no GitHub!**

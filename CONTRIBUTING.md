@@ -105,10 +105,9 @@ pytest -v
 
 All submissions require review. We use GitHub pull requests for this purpose:
 
-1. **Automated Checks**: CI/CD pipeline runs tests and linting
-2. **Code Review**: Maintainer reviews code quality and design
-3. **Feedback**: Address any requested changes
-4. **Approval**: Once approved, code will be merged
+1. **Code Review**: Maintainer reviews code quality and design
+2. **Feedback**: Address any requested changes
+3. **Approval**: Once approved, code will be merged
 
 ## 📝 License
 
