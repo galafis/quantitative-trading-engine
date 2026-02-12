@@ -1,48 +1,39 @@
 graph TB
-    subgraph "Client Layer"
-        A[REST API Client]
-        B[Swagger UI]
+    subgraph "Cliente"
+        A[REST Client / Swagger UI]
     end
-    
-    subgraph "API Layer"
-        C[FastAPI Application]
-        D[Strategies Endpoints]
-        E[Backtest Endpoints]
-        F[Health Endpoints]
+
+    subgraph "API FastAPI"
+        B[Health Endpoint]
+        C[Strategies CRUD]
+        D[Backtest Endpoint]
     end
-    
-    subgraph "Business Logic"
-        G[Strategy Manager]
-        H[Backtest Engine]
-        I[Market Data Service]
-        J[Momentum Strategy]
-        K[Mean Reversion Strategy]
-        L[Breakout Strategy]
+
+    subgraph "Motor de Trading"
+        E[BacktestEngine]
+        F[MomentumStrategy]
+        G[MeanReversionStrategy]
+        H[BreakoutStrategy]
     end
-    
-    subgraph "Data Layer"
-        M[(PostgreSQL)]
-        O[Yahoo Finance API]
+
+    subgraph "Dados"
+        I[MarketDataService]
+        J[(PostgreSQL)]
+        K[Yahoo Finance API]
     end
-    
+
+    A --> B
     A --> C
-    B --> C
-    C --> D
-    C --> E
-    C --> F
-    D --> G
+    A --> D
+    C --> J
+    D --> E
+    E --> F
+    E --> G
     E --> H
-    G --> J
-    G --> K
-    G --> L
-    H --> I
-    I --> O
-    G --> M
-    H --> M
-    
+    D --> I
+    I --> K
+    D --> J
+
     style A fill:#e1f5ff
-    style B fill:#e1f5ff
-    style C fill:#fff4e1
-    style G fill:#f0e1ff
-    style H fill:#f0e1ff
-    style M fill:#e1ffe1
+    style E fill:#f0e1ff
+    style J fill:#e1ffe1

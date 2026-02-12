@@ -64,7 +64,7 @@ class BacktestEngine:
         position = 0
         entry_price = 0
         self.trades = []
-        self.equity_curve = [capital]
+        self.equity_curve = []
 
         for i in range(len(df)):
             row = df.iloc[i]
@@ -123,7 +123,7 @@ class BacktestEngine:
                 position = 0
                 entry_price = 0
 
-            # Update equity curve
+            # Record equity for this bar
             if position > 0:
                 unrealized_pnl = (row["close"] - entry_price) * position
                 self.equity_curve.append(capital + unrealized_pnl)
@@ -151,8 +151,8 @@ class BacktestEngine:
                     "status": "closed",
                 }
             )
-            # Update equity curve after force-closing position
-            self.equity_curve.append(capital)
+            # Update the last equity entry to reflect the closed position
+            self.equity_curve[-1] = capital
 
         # Calculate metrics AFTER all positions are closed
         metrics = self.calculate_metrics(df)
