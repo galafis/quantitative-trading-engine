@@ -63,9 +63,10 @@ class MomentumStrategy(BaseStrategy):
         else:
             raise ValueError(f"Invalid MA type: {ma_type}")
 
-        # Generate signals
+        # Generate crossover signals (only on transitions, not continuously)
+        above = df["fast_ma"] > df["slow_ma"]
         df["signal"] = 0
-        df.loc[df["fast_ma"] > df["slow_ma"], "signal"] = 1  # Buy
-        df.loc[df["fast_ma"] < df["slow_ma"], "signal"] = -1  # Sell
+        df.loc[above & ~above.shift(1, fill_value=False), "signal"] = 1   # Buy on crossover
+        df.loc[~above & above.shift(1, fill_value=True), "signal"] = -1   # Sell on crossunder
 
         return df

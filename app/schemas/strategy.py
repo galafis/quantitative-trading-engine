@@ -79,39 +79,3 @@ class BacktestResponse(BaseModel):
     avg_loss: Optional[float]
     profit_factor: Optional[float]
     created_at: datetime
-
-
-class TradeResponse(BaseModel):
-    """Schema for trade response."""
-
-    model_config = ConfigDict(from_attributes=True)
-
-    id: int
-    strategy_id: int
-    symbol: str
-    side: str
-    quantity: float
-    entry_price: float
-    exit_price: Optional[float]
-    entry_time: datetime
-    exit_time: Optional[datetime]
-    pnl: Optional[float]
-    pnl_percent: Optional[float]
-    commission: float
-    slippage: float
-    status: str
-    notes: Optional[str]
-
-
-class PerformanceMetrics(BaseModel):
-    """Performance metrics schema."""
-
-    total_return: float
-    annualized_return: float
-    sharpe_ratio: float
-    sortino_ratio: float
-    max_drawdown: float
-    win_rate: float
-    profit_factor: float
-    total_trades: int
-    avg_trade_duration: float

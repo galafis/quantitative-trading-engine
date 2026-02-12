@@ -8,8 +8,6 @@ from app.schemas.strategy import (
     StrategyResponse,
     BacktestRequest,
     BacktestResponse,
-    TradeResponse,
-    PerformanceMetrics,
 )
 
 __all__ = [
@@ -19,6 +17,4 @@ __all__ = [
     "StrategyResponse",
     "BacktestRequest",
     "BacktestResponse",
-    "TradeResponse",
-    "PerformanceMetrics",
 ]

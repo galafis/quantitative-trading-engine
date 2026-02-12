@@ -112,7 +112,7 @@ def list_backtests(
     """
     query = db.query(Backtest)
 
-    if strategy_id:
+    if strategy_id is not None:
         query = query.filter(Backtest.strategy_id == strategy_id)
 
     backtests = query.offset(skip).limit(limit).all()

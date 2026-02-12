@@ -18,11 +18,6 @@ class Settings(BaseSettings):
         "backtesting and strategy optimization"
     )
 
-    # Security
-    SECRET_KEY: str = "change-me-in-production"
-    ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
-
     # Database
     DATABASE_URL: str = "postgresql://trading:trading123@localhost:5432/trading_db"
 
