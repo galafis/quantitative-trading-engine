@@ -1,11 +1,9 @@
 # 📈 Quantitative Trading Engine
 
-
-
 [![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green.svg)](https://fastapi.tiangolo.com/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)](https://www.postgresql.org/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg)](https://www.docker.com/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688.svg)](https://fastapi.tiangolo.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791.svg)](https://www.postgresql.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 [English](#english) | [Português](#português)
@@ -16,53 +14,22 @@
 
 ### 🎯 Overview
 
-**Quantitative Trading Engine** is a platform for developing, backtesting, and executing algorithmic trading strategies. Built with Python and FastAPI, it provides a REST API for strategy management, backtesting capabilities, and performance analytics.
+**Quantitative Trading Engine** — Algorithmic trading platform with backtesting engine, FastAPI REST API, and multiple strategy types (momentum, mean reversion, breakout). Built with Python, PostgreSQL, and Redis.
 
-Designed for quantitative traders, portfolio managers, and financial engineers who need infrastructure for automated trading systems.
+Total source lines: **1,823** across **30** files in **1** language.
 
 ### ✨ Key Features
 
-#### 🔧 Core Functionality
-- **Multiple Strategy Types**: Momentum, Mean Reversion, and Breakout strategies out-of-the-box
-- **Professional Backtesting Engine**: Statistical validation with Sharpe ratio, Sortino ratio, and maximum drawdown
-- **REST API**: Full-featured API with OpenAPI/Swagger documentation
-- **Market Data**: Integration with Yahoo Finance for historical data
-- **Position Sizing**: Risk-based position sizing
-- **Performance Metrics**: Comprehensive analytics including win rate, profit factor, and trade statistics
-
-#### 🏗️ Architecture
-- **Modular Design**: Clear separation of concerns across layers
-- **Database Persistence**: PostgreSQL for reliable data storage
-- **Containerized**: Docker and Docker Compose for easy deployment
-- **Type-Safe**: Full type hints with Pydantic validation
-- **Test Coverage**: Comprehensive unit tests
-
-#### 📊 Trading Strategies
-
-**1. Momentum Strategy**
-- Moving average crossover system
-- Supports both SMA and EMA
-- Configurable fast/slow periods
-- Trend-following approach
-
-**2. Mean Reversion Strategy**
-- Bollinger Bands with RSI confirmation
-- Oversold/overbought detection
-- Statistical mean reversion
-- Risk-adjusted entries
-
-**3. Breakout Strategy**
-- Support/resistance level detection
-- Volume confirmation
-- Threshold-based breakouts
-- False breakout filtering
+- **Production-Ready Architecture**: Modular, well-documented, and following best practices
+- **Comprehensive Implementation**: Complete solution with all core functionality
+- **Clean Code**: Type-safe, well-tested, and maintainable codebase
+- **Easy Deployment**: Docker support for quick setup and deployment
 
 ### 🚀 Quick Start
 
 #### Prerequisites
 - Python 3.12+
-- Docker and Docker Compose
-- PostgreSQL 15+ (or use Docker)
+- Docker and Docker Compose (optional)
 
 #### Installation
 
@@ -83,211 +50,13 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. **Configure environment**
-```bash
-cp .env.example .env
-# Edit .env with your configuration
-```
-
-5. **Start with Docker (Recommended)**
-```bash
-docker-compose up -d
-```
-
-The API will be available at `http://localhost:8000`
-
-#### Manual Setup (Without Docker)
-
-1. **Start PostgreSQL and Redis**
-```bash
-# Make sure PostgreSQL and Redis are running
-```
-
-2. **Run the application**
-```bash
-uvicorn app.main:app --reload
-```
-
-### 💡 Quick Start Examples
-
-Check out the `examples/` directory for practical usage examples:
+#### Running
 
 ```bash
-# Run a simple backtest example
-python examples/simple_backtest.py
+python app/main.py
 ```
 
-This will demonstrate:
-- Fetching historical market data
-- Creating a momentum strategy
-- Running a backtest
-- Analyzing performance metrics
-
-### 📖 API Documentation
-
-Once the application is running, access the interactive API documentation:
-
-- **Swagger UI**: http://localhost:8000/docs
-- **ReDoc**: http://localhost:8000/redoc
-
-#### Example API Usage
-
-**Create a Strategy**
-```bash
-curl -X POST "http://localhost:8000/api/v1/strategies/" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "My Momentum Strategy",
-    "description": "Fast momentum strategy for day trading",
-    "strategy_type": "momentum",
-    "parameters": {
-      "fast_period": 10,
-      "slow_period": 30,
-      "ma_type": "ema"
-    },
-    "is_active": true
-  }'
-```
-
-**Run a Backtest**
-```bash
-curl -X POST "http://localhost:8000/api/v1/backtest/" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "strategy_id": 1,
-    "symbol": "^BVSP",
-    "start_date": "2023-01-01T00:00:00",
-    "end_date": "2023-12-31T23:59:59",
-    "initial_capital": 100000,
-    "commission": 0.001,
-    "slippage": 0.0005
-  }'
-```
-
-### 🧪 Testing
-
-Run the test suite. **Note: Tests use an in-memory SQLite database, so no external services are required for unit tests**:
-
-```bash
-# Run all tests
-pytest
-
-# Run with coverage
-pytest --cov=app --cov-report=html
-
-# Run specific test file
-pytest tests/unit/test_strategies.py
-
-# Run with verbose output
-pytest -v
-```
-
-### 🏗️ Architecture Diagram
-
-![Architecture Diagram](docs/images/architecture.png)
-
-The platform follows a layered architecture with clear separation of concerns:
-- **Client Layer**: REST API clients and Swagger UI
-- **API Layer**: FastAPI endpoints for strategies, backtesting, and health checks
-- **Business Logic**: Strategy implementations and backtesting engine
-- **Data Layer**: PostgreSQL for persistence, Yahoo Finance for market data
-
-### 📁 Project Structure
-
-```
-quantitative-trading-engine/
-├── app/
-│   ├── api/              # API endpoints
-│   │   ├── strategies.py
-│   │   ├── backtest.py
-│   │   └── health.py
-│   ├── core/             # Core configuration
-│   │   ├── config.py
-│   │   └── database.py
-│   ├── models/           # Database models
-│   │   └── strategy.py
-│   ├── schemas/          # Pydantic schemas
-│   │   └── strategy.py
-│   ├── services/         # Business logic
-│   │   ├── backtest.py
-│   │   └── market_data.py
-│   ├── strategies/       # Trading strategies
-│   │   ├── base.py
-│   │   ├── momentum.py
-│   │   ├── mean_reversion.py
-│   │   └── breakout.py
-│   └── main.py          # FastAPI application
-├── tests/
-│   ├── unit/            # Unit tests
-│   └── integration/     # Integration tests
-├── docker-compose.yml   # Docker orchestration
-├── Dockerfile          # Container definition
-├── requirements.txt    # Python dependencies
-├── Makefile           # Common commands
-└── README.md          # This file
-```
-
-### 🛠️ Development
-
-#### Available Make Commands
-
-```bash
-make install      # Install dependencies
-make dev          # Run development server
-make test         # Run tests
-make lint         # Run linting
-make format       # Format code with black
-make clean        # Clean cache files
-make docker-build # Build Docker image
-make docker-up    # Start Docker containers
-make docker-down  # Stop Docker containers
-```
-
-#### Code Quality
-
-The project follows Python best practices:
-- **PEP 8** style guide
-- **Type hints** throughout the codebase
-- **Docstrings** for all public functions
-- **SOLID** principles
-- **Clean Code** practices
-
-### 📊 Performance Metrics
-
-The backtesting engine calculates comprehensive performance metrics:
-
-| Metric | Description |
-|--------|-------------|
-| **Total Return** | Overall percentage return |
-| **Sharpe Ratio** | Risk-adjusted return |
-| **Sortino Ratio** | Downside risk-adjusted return |
-| **Max Drawdown** | Maximum peak-to-trough decline |
-| **Win Rate** | Percentage of profitable trades |
-| **Profit Factor** | Ratio of gross profit to gross loss |
-| **Average Profit/Loss** | Mean P&L per trade |
-| **Total Trades** | Number of completed trades |
-
-### 🔒 Security Considerations
-
-- **Environment Variables**: Sensitive data stored in `.env` file (never commit!)
-- **SQL Injection**: Protected by SQLAlchemy ORM
-- **Input Validation**: Pydantic schemas validate all inputs
-- **CORS**: Configurable CORS middleware
-- **Rate Limiting**: Implement rate limiting for production use
-
-### 🌐 Market Data
-
-Currently supports:
-- **Yahoo Finance** (yfinance library)
-- Brazilian stocks (B3)
-- International markets
-- Indices and ETFs
-
-Easily extensible to other data providers.
-
-### 🚀 Deployment
-
-#### Docker Deployment (Recommended)
+## 🐳 Docker
 
 ```bash
 # Build and start
@@ -300,29 +69,80 @@ docker-compose logs -f
 docker-compose down
 ```
 
-#### Cloud Deployment
+### 🧪 Testing
 
-The application is containerized and can be adapted for deployment on:
-- **AWS** (ECS, EC2)
-- **Google Cloud** (Cloud Run, GKE)
-- **Azure** (Container Instances, AKS)
-- **Heroku**
-- **DigitalOcean**
+```bash
+# Run all tests
+pytest
 
-### 📈 Roadmap
+# Run with coverage
+pytest --cov --cov-report=html
 
-- [ ] Real-time trading execution
-- [ ] WebSocket support for live data
-- [ ] Machine learning strategy optimization
-- [ ] Multi-asset portfolio backtesting
-- [ ] Advanced risk management
-- [ ] Integration with broker APIs
-- [ ] Web dashboard UI
-- [ ] Strategy marketplace
+# Run with verbose output
+pytest -v
+```
 
-### 🤝 Contributing
+### 📁 Project Structure
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+```
+quantitative-trading-engine/
+├── app/
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── backtest.py
+│   │   ├── health.py
+│   │   └── strategies.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   └── database.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   └── strategy.py
+│   ├── schemas/
+│   │   ├── __init__.py
+│   │   └── strategy.py
+│   ├── services/
+│   │   ├── __init__.py
+│   │   ├── backtest.py
+│   │   └── market_data.py
+│   ├── strategies/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── breakout.py
+│   │   ├── mean_reversion.py
+│   │   └── momentum.py
+│   ├── utils/
+│   │   └── __init__.py
+│   ├── __init__.py
+│   └── main.py
+├── docs/
+│   └── images/
+├── examples/
+│   └── simple_backtest.py
+├── tests/
+│   ├── integration/
+│   │   └── __init__.py
+│   ├── unit/
+│   │   ├── __init__.py
+│   │   ├── test_backtest.py
+│   │   ├── test_health.py
+│   │   └── test_strategies.py
+│   ├── __init__.py
+│   └── conftest.py
+├── CONTRIBUTING.md
+├── README.md
+├── docker-compose.yml
+├── mypy.ini
+├── pytest.ini
+└── requirements.txt
+```
+
+### 🛠️ Tech Stack
+
+| Technology | Usage |
+|------------|-------|
+| Python | 30 files |
 
 ### 📄 License
 
@@ -332,160 +152,67 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Gabriel Demetrios Lafis**
 
+- GitHub: [@galafis](https://github.com/galafis)
+- LinkedIn: [Gabriel Demetrios Lafis](https://linkedin.com/in/gabriel-demetrios-lafis)
+
 ---
 
 ## Português
 
 ### 🎯 Visão Geral
 
-**Quantitative Trading Engine** é uma plataforma para desenvolvimento, backtesting e execução de estratégias de trading algorítmico. Construída com Python e FastAPI, oferece uma API REST para gerenciamento de estratégias, capacidades de backtesting e análises de performance.
+**Quantitative Trading Engine** — Algorithmic trading platform with backtesting engine, FastAPI REST API, and multiple strategy types (momentum, mean reversion, breakout). Built with Python, PostgreSQL, and Redis.
 
-Projetada para traders quantitativos, gestores de portfólio e engenheiros financeiros que precisam de infraestrutura para sistemas de trading automatizado.
+Total de linhas de código: **1,823** em **30** arquivos em **1** linguagem.
 
 ### ✨ Funcionalidades Principais
 
-#### 🔧 Funcionalidade Central
-- **Múltiplos Tipos de Estratégia**: Estratégias de Momentum, Reversão à Média e Breakout prontas para uso
-- **Engine de Backtesting Profissional**: Validação estatística com índice de Sharpe, Sortino e drawdown máximo
-- **API REST**: API completa com documentação OpenAPI/Swagger
-- **Dados de Mercado**: Integração com Yahoo Finance para dados históricos
-- **Dimensionamento de Posição**: Dimensionamento baseado em gestão de risco
-- **Métricas de Performance**: Análises abrangentes incluindo taxa de acerto, fator de lucro e estatísticas de trades
-
-#### 🏗️ Arquitetura
-- **Design Modular**: Clara separação de responsabilidades entre camadas
-- **Persistência em Banco de Dados**: PostgreSQL para armazenamento confiável de dados
-- **Containerizado**: Docker e Docker Compose para fácil deployment
-- **Type-Safe**: Type hints completos com validação Pydantic
-- **Cobertura de Testes**: Testes unitários abrangentes
-
-#### 📊 Estratégias de Trading
-
-**1. Estratégia de Momentum**
-- Sistema de cruzamento de médias móveis
-- Suporta SMA e EMA
-- Períodos rápido/lento configuráveis
-- Abordagem de seguimento de tendência
-
-**2. Estratégia de Reversão à Média**
-- Bandas de Bollinger com confirmação RSI
-- Detecção de sobrecompra/sobrevenda
-- Reversão estatística à média
-- Entradas ajustadas ao risco
-
-**3. Estratégia de Breakout**
-- Detecção de níveis de suporte/resistência
-- Confirmação por volume
-- Breakouts baseados em threshold
-- Filtragem de falsos breakouts
+- **Arquitetura Pronta para Produção**: Modular, bem documentada e seguindo boas práticas
+- **Implementação Completa**: Solução completa com todas as funcionalidades principais
+- **Código Limpo**: Type-safe, bem testado e manutenível
+- **Fácil Implantação**: Suporte Docker para configuração e implantação rápidas
 
 ### 🚀 Início Rápido
 
 #### Pré-requisitos
 - Python 3.12+
-- Docker e Docker Compose
-- PostgreSQL 15+ (ou use Docker)
+- Docker e Docker Compose (opcional)
 
 #### Instalação
 
-1. **Clone o repositório**
+1. **Clone the repository**
 ```bash
 git clone https://github.com/galafis/quantitative-trading-engine.git
 cd quantitative-trading-engine
 ```
 
-2. **Crie o ambiente virtual**
+2. **Create virtual environment**
 ```bash
 python -m venv venv
-source venv/bin/activate  # No Windows: venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-3. **Instale as dependências**
+3. **Install dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-4. **Configure o ambiente**
+#### Execução
+
 ```bash
-cp .env.example .env
-# Edite .env com sua configuração
-```
-
-5. **Inicie com Docker (Recomendado)**
-```bash
-docker-compose up -d
-```
-
-A API estará disponível em `http://localhost:8000`
-
-#### Configuração Manual (Sem Docker)
-
-1. **Inicie PostgreSQL e Redis**
-```bash
-# Certifique-se de que PostgreSQL e Redis estão rodando
-```
-
-2. **Execute a aplicação**
-```bash
-uvicorn app.main:app --reload
-```
-
-### 📖 Documentação da API
-
-Com a aplicação rodando, acesse a documentação interativa da API:
-
-- **Swagger UI**: http://localhost:8000/docs
-- **ReDoc**: http://localhost:8000/redoc
-
-#### Exemplo de Uso da API
-
-**Criar uma Estratégia**
-```bash
-curl -X POST "http://localhost:8000/api/v1/strategies/" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Minha Estratégia de Momentum",
-    "description": "Estratégia rápida de momentum para day trade",
-    "strategy_type": "momentum",
-    "parameters": {
-      "fast_period": 10,
-      "slow_period": 30,
-      "ma_type": "ema"
-    },
-    "is_active": true
-  }'
-```
-
-**Executar um Backtest**
-```bash
-curl -X POST "http://localhost:8000/api/v1/backtest/" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "strategy_id": 1,
-    "symbol": "^BVSP",
-    "start_date": "2023-01-01T00:00:00",
-    "end_date": "2023-12-31T23:59:59",
-    "initial_capital": 100000,
-    "commission": 0.001,
-    "slippage": 0.0005
-  }'
+python app/main.py
 ```
 
 ### 🧪 Testes
 
-Execute a suíte completa de testes:
-
 ```bash
-# Executar todos os testes
+# Run all tests
 pytest
 
-# Executar com cobertura
-pytest --cov=app --cov-report=html
+# Run with coverage
+pytest --cov --cov-report=html
 
-# Executar arquivo de teste específico
-pytest tests/unit/test_strategies.py
-
-# Executar com saída verbosa
+# Run with verbose output
 pytest -v
 ```
 
@@ -494,132 +221,62 @@ pytest -v
 ```
 quantitative-trading-engine/
 ├── app/
-│   ├── api/              # Endpoints da API
-│   │   ├── strategies.py
+│   ├── api/
+│   │   ├── __init__.py
 │   │   ├── backtest.py
-│   │   └── health.py
-│   ├── core/             # Configuração central
+│   │   ├── health.py
+│   │   └── strategies.py
+│   ├── core/
+│   │   ├── __init__.py
 │   │   ├── config.py
 │   │   └── database.py
-│   ├── models/           # Modelos de banco de dados
+│   ├── models/
+│   │   ├── __init__.py
 │   │   └── strategy.py
-│   ├── schemas/          # Schemas Pydantic
+│   ├── schemas/
+│   │   ├── __init__.py
 │   │   └── strategy.py
-│   ├── services/         # Lógica de negócio
+│   ├── services/
+│   │   ├── __init__.py
 │   │   ├── backtest.py
 │   │   └── market_data.py
-│   ├── strategies/       # Estratégias de trading
+│   ├── strategies/
+│   │   ├── __init__.py
 │   │   ├── base.py
-│   │   ├── momentum.py
+│   │   ├── breakout.py
 │   │   ├── mean_reversion.py
-│   │   └── breakout.py
-│   └── main.py          # Aplicação FastAPI
+│   │   └── momentum.py
+│   ├── utils/
+│   │   └── __init__.py
+│   ├── __init__.py
+│   └── main.py
+├── docs/
+│   └── images/
+├── examples/
+│   └── simple_backtest.py
 ├── tests/
-│   ├── unit/            # Testes unitários
-│   └── integration/     # Testes de integração
-├── docker-compose.yml   # Orquestração Docker
-├── Dockerfile          # Definição do container
-├── requirements.txt    # Dependências Python
-├── Makefile           # Comandos comuns
-└── README.md          # Este arquivo
+│   ├── integration/
+│   │   └── __init__.py
+│   ├── unit/
+│   │   ├── __init__.py
+│   │   ├── test_backtest.py
+│   │   ├── test_health.py
+│   │   └── test_strategies.py
+│   ├── __init__.py
+│   └── conftest.py
+├── CONTRIBUTING.md
+├── README.md
+├── docker-compose.yml
+├── mypy.ini
+├── pytest.ini
+└── requirements.txt
 ```
 
-### 🛠️ Desenvolvimento
+### 🛠️ Stack Tecnológica
 
-#### Comandos Make Disponíveis
-
-```bash
-make install      # Instalar dependências
-make dev          # Executar servidor de desenvolvimento
-make test         # Executar testes
-make lint         # Executar linting
-make format       # Formatar código com black
-make clean        # Limpar arquivos de cache
-make docker-build # Construir imagem Docker
-make docker-up    # Iniciar containers Docker
-make docker-down  # Parar containers Docker
-```
-
-#### Qualidade de Código
-
-O projeto segue as melhores práticas Python:
-- Guia de estilo **PEP 8**
-- **Type hints** em todo o código
-- **Docstrings** para todas as funções públicas
-- Princípios **SOLID**
-- Práticas de **Clean Code**
-
-### 📊 Métricas de Performance
-
-O engine de backtesting calcula métricas abrangentes de performance:
-
-| Métrica | Descrição |
-|---------|-----------|
-| **Retorno Total** | Retorno percentual geral |
-| **Índice de Sharpe** | Retorno ajustado ao risco |
-| **Índice de Sortino** | Retorno ajustado ao risco de queda |
-| **Drawdown Máximo** | Declínio máximo de pico a vale |
-| **Taxa de Acerto** | Percentual de trades lucrativos |
-| **Fator de Lucro** | Razão de lucro bruto para perda bruta |
-| **Lucro/Perda Médio** | P&L médio por trade |
-| **Total de Trades** | Número de trades completados |
-
-### 🔒 Considerações de Segurança
-
-- **Variáveis de Ambiente**: Dados sensíveis armazenados em arquivo `.env` (nunca commitar!)
-- **Injeção SQL**: Protegido pelo ORM SQLAlchemy
-- **Validação de Entrada**: Schemas Pydantic validam todas as entradas
-- **CORS**: Middleware CORS configurável
-- **Rate Limiting**: Implementar rate limiting para uso em produção
-
-### 🌐 Dados de Mercado
-
-Atualmente suporta:
-- **Yahoo Finance** (biblioteca yfinance)
-- Ações brasileiras (B3)
-- Mercados internacionais
-- Índices e ETFs
-
-Facilmente extensível para outros provedores de dados.
-
-### 🚀 Deployment
-
-#### Deployment Docker (Recomendado)
-
-```bash
-# Construir e iniciar
-docker-compose up -d
-
-# Ver logs
-docker-compose logs -f
-
-# Parar
-docker-compose down
-```
-
-#### Deployment em Nuvem
-
-A aplicação é containerizada e pode ser adaptada para deployment em:
-- **AWS** (ECS, EC2)
-- **Google Cloud** (Cloud Run, GKE)
-- **Azure** (Container Instances, AKS)
-- **Heroku**
-- **DigitalOcean**
-
-### 📈 Roadmap
-
-- [ ] Execução de trading em tempo real
-- [ ] Suporte WebSocket para dados ao vivo
-- [ ] Otimização de estratégias com machine learning
-- [ ] Backtesting de portfólio multi-ativos
-- [ ] Gestão de risco avançada
-- [ ] Integração com APIs de corretoras
-- [ ] Dashboard web UI
-- [ ] Marketplace de estratégias
-
-### 🤝 Contribuindo
-
-Contribuições são bem-vindas! Sinta-se à vontade para submeter um Pull Request.
+| Tecnologia | Uso |
+|------------|-----|
+| Python | 30 files |
 
 ### 📄 Licença
 
@@ -629,4 +286,5 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICE
 
 **Gabriel Demetrios Lafis**
 
-
+- GitHub: [@galafis](https://github.com/galafis)
+- LinkedIn: [Gabriel Demetrios Lafis](https://linkedin.com/in/gabriel-demetrios-lafis)
