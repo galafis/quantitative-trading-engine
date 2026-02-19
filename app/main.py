@@ -37,15 +37,18 @@ app = FastAPI(
 )
 
 # Configure CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=settings.BACKEND_CORS_ORIGINS,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
-# Include routers
-app.include_router(health.router)
-app.include_router(strategies.router, prefix=settings.API_V1_STR)
-app.include_router(backtest.router, prefix=settings.API_V1_STR)
+
+if __name__ == '__main__':
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.BACKEND_CORS_ORIGINS,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
+    # Include routers
+    app.include_router(health.router)
+    app.include_router(strategies.router, prefix=settings.API_V1_STR)
+    app.include_router(backtest.router, prefix=settings.API_V1_STR)
